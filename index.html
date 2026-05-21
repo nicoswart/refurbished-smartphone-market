@@ -167,8 +167,9 @@
       margin-bottom: 20px;
     }
 
-    .chart-full { width: 100%; height: 340px; }
-    .chart-medium { width: 100%; height: 300px; }
+    .chart-full   { position: relative; width: 100%; height: 340px; }
+    .chart-medium { position: relative; width: 100%; height: 300px; }
+    .chart-full canvas, .chart-medium canvas { position: absolute; inset: 0; }
 
     .two-col {
       display: grid;
@@ -319,7 +320,7 @@
     <div class="card">
       <h3>Global Market Revenue (USD Billion)</h3>
       <div class="card-sub">2019 – 2028 · Actuals &amp; Forecasts</div>
-      <canvas id="marketGrowthChart" class="chart-full"></canvas>
+      <div class="chart-full"><canvas id="marketGrowthChart"></canvas></div>
     </div>
 
     <div class="insights" style="margin-top:20px;">
@@ -342,12 +343,12 @@
       <div class="card">
         <h3>Market Share by Brand (2023)</h3>
         <div class="card-sub">% of global refurbished unit volume</div>
-        <canvas id="brandShareChart" class="chart-medium"></canvas>
+        <div class="chart-medium"><canvas id="brandShareChart"></canvas></div>
       </div>
       <div class="card">
         <h3>Year-over-Year Volume Growth by Brand</h3>
         <div class="card-sub">2022 → 2023 · Unit sales growth (%)</div>
-        <canvas id="brandGrowthChart" class="chart-medium"></canvas>
+        <div class="chart-medium"><canvas id="brandGrowthChart"></canvas></div>
       </div>
     </div>
 
@@ -366,51 +367,48 @@
       <p>Refurbished devices are graded A through C based on cosmetic and functional condition. Each grade carries distinct pricing, sourcing costs, and margin profiles.</p>
     </div>
 
-    <div class="two-col">
-      <div class="card">
-        <h3>Average Selling Price by Brand &amp; Grade</h3>
-        <div class="card-sub">EUR · European market averages 2024</div>
-        <canvas id="pricingChart" class="chart-medium"></canvas>
-      </div>
-      <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
-        <div>
-          <h3>Grade Definition &amp; Margin Guide</h3>
-          <div class="card-sub">Industry-standard grading benchmarks</div>
-          <table class="grade-table">
-            <thead>
-              <tr>
-                <th>Grade</th>
-                <th>Condition</th>
-                <th>Avg. Discount vs New</th>
-                <th>Gross Margin</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="grade-badge grade-a">A</span></td>
-                <td>Like new, minimal wear</td>
-                <td>25 – 35%</td>
-                <td>18 – 28%</td>
-              </tr>
-              <tr>
-                <td><span class="grade-badge grade-b">B</span></td>
-                <td>Light scratches, full function</td>
-                <td>40 – 55%</td>
-                <td>22 – 35%</td>
-              </tr>
-              <tr>
-                <td><span class="grade-badge grade-c">C</span></td>
-                <td>Visible wear, tested &amp; working</td>
-                <td>55 – 70%</td>
-                <td>28 – 42%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="insights" style="margin-top:20px;">
-          <span class="insight-pill">Grade B is highest volume tier (47% of sales)</span>
-          <span class="insight-pill">Grade A growing fastest (+19% YoY)</span>
-        </div>
+    <div class="card" style="margin-bottom:24px;">
+      <h3>Average Selling Price by Brand &amp; Grade</h3>
+      <div class="card-sub">EUR · European market averages 2024</div>
+      <div class="chart-medium"><canvas id="pricingChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h3>Grade Definition &amp; Margin Guide</h3>
+      <div class="card-sub">Industry-standard grading benchmarks</div>
+      <table class="grade-table">
+        <thead>
+          <tr>
+            <th>Grade</th>
+            <th>Condition</th>
+            <th>Avg. Discount vs New</th>
+            <th>Gross Margin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="grade-badge grade-a">A</span></td>
+            <td>Like new, minimal wear</td>
+            <td>25 – 35%</td>
+            <td>18 – 28%</td>
+          </tr>
+          <tr>
+            <td><span class="grade-badge grade-b">B</span></td>
+            <td>Light scratches, full function</td>
+            <td>40 – 55%</td>
+            <td>22 – 35%</td>
+          </tr>
+          <tr>
+            <td><span class="grade-badge grade-c">C</span></td>
+            <td>Visible wear, tested &amp; working</td>
+            <td>55 – 70%</td>
+            <td>28 – 42%</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="insights" style="margin-top:20px;">
+        <span class="insight-pill">Grade B is highest volume tier (47% of sales)</span>
+        <span class="insight-pill">Grade A growing fastest (+19% YoY)</span>
       </div>
     </div>
   </section>
@@ -427,12 +425,12 @@
       <div class="card">
         <h3>Repair Volume by Type</h3>
         <div class="card-sub">% share of total repair jobs (EU market, 2024)</div>
-        <canvas id="repairVolumeChart" class="chart-medium"></canvas>
+        <div class="chart-medium"><canvas id="repairVolumeChart"></canvas></div>
       </div>
       <div class="card">
         <h3>Repair Cost Benchmarks (EUR, incl. parts &amp; labour)</h3>
         <div class="card-sub">Average market rates — independent repair shops</div>
-        <canvas id="repairCostChart" class="chart-medium"></canvas>
+        <div class="chart-medium"><canvas id="repairCostChart"></canvas></div>
       </div>
     </div>
 
@@ -513,12 +511,12 @@
           borderColor: BLUE,
           backgroundColor: 'transparent',
           borderWidth: 2,
-          borderDash: [6,3],
+          borderDash: [6, 3],
           pointRadius: 4,
           pointBackgroundColor: BLUE,
           fill: false,
           tension: .35,
-          yAxisID: 'y2',
+          yAxisID: 'units',
         }
       ]
     },
@@ -527,9 +525,9 @@
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: { position: 'top' } },
       scales: {
-        y:  { title: { display: true, text: 'Revenue (USD B)' }, grid: { color: '#f1f5f9' } },
-        y2: { position: 'right', title: { display: true, text: 'Units (M)' }, grid: { drawOnChartArea: false } },
-        x:  { grid: { color: '#f1f5f9' } }
+        y:     { type: 'linear', position: 'left',  title: { display: true, text: 'Revenue (USD B)' }, grid: { color: '#f1f5f9' }, min: 0 },
+        units: { type: 'linear', position: 'right', title: { display: true, text: 'Units Sold (M)' },  grid: { drawOnChartArea: false }, min: 0 },
+        x:     { grid: { color: '#f1f5f9' } }
       }
     }
   });
@@ -622,22 +620,45 @@
     }
   });
 
-  // ── 4b. Repair Cost Bar ───────────────────────────────────────────────
+  // ── 4b. Repair Cost Range (floating horizontal bars) ─────────────────
   new Chart(document.getElementById('repairCostChart'), {
     type: 'bar',
     data: {
       labels: ['Screen','Battery','Charging Port','Camera','Back Glass','Water Damage'],
-      datasets: [
-        { label: 'Min Cost (EUR)', data: [65, 35, 45, 55, 40, 80],  backgroundColor: 'rgba(14,165,233,.45)', borderRadius: 4 },
-        { label: 'Max Cost (EUR)', data: [320, 89, 110, 180, 150, 200], backgroundColor: TEAL,             borderRadius: 4 },
-      ]
+      datasets: [{
+        label: 'Price Range (EUR)',
+        data: [[65,320],[35,89],[45,110],[55,180],[40,150],[80,200]],
+        backgroundColor: [
+          'rgba(14,165,233,.75)',
+          'rgba(26,86,219,.75)',
+          'rgba(16,185,129,.75)',
+          'rgba(245,158,11,.75)',
+          'rgba(139,92,246,.75)',
+          'rgba(239,68,68,.75)',
+        ],
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'top' } },
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` €${ctx.raw[0]} – €${ctx.raw[1]}`
+          }
+        }
+      },
       scales: {
-        y: { title: { display: true, text: 'Price (EUR)' }, grid: { color: '#f1f5f9' } },
-        x: { grid: { display: false } }
+        x: {
+          title: { display: true, text: 'Price (EUR)' },
+          grid: { color: '#f1f5f9' },
+          min: 0,
+          max: 350,
+        },
+        y: { grid: { display: false } }
       }
     }
   });
